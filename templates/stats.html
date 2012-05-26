@@ -1,0 +1,53 @@
+<html>
+<head>
+
+<style type="text/css">
+table.sample {
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: separate;
+	background-color: white;
+}
+table.sample th {
+	border-width: 1px;
+	padding: 1px;
+	border-style: inset;
+	border-color: gray;
+	background-color: white;
+	-moz-border-radius: ;
+}
+table.sample td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: inset;
+	border-color: gray;
+	background-color: white;
+	-moz-border-radius: ;
+}
+</style>
+
+</head>
+<body>
+
+<table class="sample">
+  {% for image, rating in ratings %}
+  <tr>
+    <td>{{image}}</td><td>{{rating}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<table class="sample">
+  {% for (session,ip,image1,image2) in clicks %}
+  <tr>
+    <td>{{session}}</td><td>{{ip}}</td>
+    <td>{{image1}}</td><td>{{image2}}</td>
+<!--    <td><img src="/static/{{image1}}"/></td><td><img src="/static/{{image2}}"/></td> -->
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>

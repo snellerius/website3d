@@ -1,0 +1,57 @@
+<html>
+  <head>
+<style>
+body {
+  padding-top: 24px;
+}
+
+.centered {
+  margin: auto;
+}
+
+div#links a {
+  color: #6D84B4;
+  font-size: 16pt;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  text-decoration: none;
+}
+
+div.image {
+  float:left;
+  padding: 8px;
+}
+
+div.picture {
+  width: 400px;
+  height: 400px;
+} 
+
+</style>
+  </head>
+
+  <body>
+
+    <div class="centered">
+
+      <div class="image">
+	<div class="picture">
+	  <img src="/static/{{image1}}"/>
+	</div>
+	<div class="centered" id="links">
+	  <a class="positive" href="/hotter/{{image1}}/{{image2}}"><img src="static/like2.png"></a>
+	</div>
+      </div>
+      
+      <div class="image">
+	<div class="picture">
+	  <img src="/static/{{image2}}"/>
+	</div>
+	<div class="centered" id="links">
+	  <a class="positive" href="/hotter/{{image2}}/{{image1}}"><img src="static/like2.png"></a>
+	</div>
+      </div>
+
+    </div>
+
+  </body>
+</html>
