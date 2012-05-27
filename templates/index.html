@@ -3,8 +3,8 @@
 <style>
 body {
   padding: 24px;
-  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
-  font-size: 13pt;
+  font-family: Trebuchet MS, "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-size: 12pt;
 }
 
 .centered {
@@ -27,7 +27,40 @@ a {
 
 div.centered {
   margin: auto;
-  width: 520px;
+   width: 520px;
+}
+
+.buttong {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+	box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9dce2c), color-stop(1, #8cb82b) );
+	background:-moz-linear-gradient( center top, #9dce2c 5%, #8cb82b 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9dce2c', endColorstr='#8cb82b');
+	background-color:#9dce2c;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	color:#ffffff;
+	font-size:12px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #689324;
+}
+
+.buttong:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8cb82b), color-stop(1, #9dce2c) );
+	background:-moz-linear-gradient( center top, #8cb82b 5%, #9dce2c 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cb82b', endColorstr='#9dce2c');
+	background-color:#8cb82b;
+}
+
+.buttong:active {
+	position:relative;
+	top:1px;
 }
 
 .button {
@@ -44,7 +77,6 @@ div.centered {
 	border:1px solid #d83526;
 	display:inline-block;
 	color:#ffffff;
-	font-family:arial;
 	font-size:12px;
 	font-weight:bold;
 	padding:6px 24px;
@@ -71,10 +103,10 @@ div.centered {
       <h1>Is dit kunst of kan het weg?</h1>
 	<div class="image">
 	  <div class="picture"><img src="/static/{{image}}"/></div>
-	  <p><i>{{bijschrift}}</i></p>
+	  <p>{{bijschrift}}</p>
 	  <div class="btn">
 	    <center>
-	      <a class="button" href="/kunst/{{image}}/">Dit is kunst!</a>
+	      <a class="buttong" href="/kunst/{{image}}/">Dit is kunst!</a>
 	      <a class="button" href="/weg/{{image}}/">Het kan weg!</a>
 	    </center>
 	  </div>
