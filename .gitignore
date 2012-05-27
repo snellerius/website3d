@@ -1,0 +1,7 @@
+include
+bin
+static
+lib
+local
+*.py~
+*.pyc
