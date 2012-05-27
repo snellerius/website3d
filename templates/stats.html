@@ -40,11 +40,10 @@ table.sample td {
 </table>
 
 <table class="sample">
-  {% for (session,ip,image1,image2) in clicks %}
+  {% for (id,session,ip,seq,time,image1,image2) in clicks %}
   <tr>
     <td>{{session}}</td><td>{{ip}}</td>
     <td>{{image1}}</td><td>{{image2}}</td>
-<!--    <td><img src="/static/{{image1}}"/></td><td><img src="/static/{{image2}}"/></td> -->
   </tr>
   {% endfor %}
 </table>

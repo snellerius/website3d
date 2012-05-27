@@ -71,9 +71,11 @@ for image in images:
 
 @app.route("/")
 def index():
+    # new user? assign unique id (is stored in cookie)
     if not 'counter' in session:
         session['user'] = random_username()
         session['counter'] = random.randint(0,12345678)
+        return render_template("welcome.html")
 
     r = random.Random()
     r.seed(session['counter'])
@@ -84,10 +86,8 @@ def index():
 @app.route("/hotter/<image1>/<image2>/")
 def hotter(image1, image2):
 
-    # new user? assign unique id (is stored in cookie)
     if not 'user' in session:
-        session['user'] = random_username()
-        session['counter'] = random.randint(0,12345678)
+        abort(403)
 
     # increase counter
     session['counter'] += 1
@@ -105,7 +105,15 @@ def shutdown_session(exception=None):
 
 @app.route("/stats/")
 def stats():
-    return render_template("stats.html", clicks=Click.query.all())
+    cs = [row2dict(c) for c in Click.query.all()]
+    return render_template("stats.html", clicks=cs)
+
+def row2dict(row):
+    d = {}
+    for columnName in row.__table__.columns.keys():
+        d[columnName] = getattr(row, columnName)
+
+    return d
 
 if __name__ == "__main__":
     app.debug = True
