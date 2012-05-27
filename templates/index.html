@@ -27,11 +27,7 @@ a {
 
 div.centered {
   margin: auto;
-  width: 1100
-}
-
-div.image {
-  float:left;
+  width: 520px;
 }
 
 .button {
@@ -73,20 +69,16 @@ div.image {
   <body>
     <div class="centered">
       <h1>Is dit kunst of kan het weg?</h1>
-      <div>
 	<div class="image">
-	  <div class="picture"><img src="/static/{{image1}}"/></div>
-	  <p><i>{{bijschrift1}}</i></p>
-	  <div class="btn"><center><a class="button" href="/hotter/{{image2}}/{{image1}}">Dit kan weg!</a></center></div>
-	 
+	  <div class="picture"><img src="/static/{{image}}"/></div>
+	  <p><i>{{bijschrift}}</i></p>
+	  <div class="btn">
+	    <center>
+	      <a class="button" href="/kunst/{{image}}/">Dit is kunst!</a>
+	      <a class="button" href="/weg/{{image}}/">Het kan weg!</a>
+	    </center>
+	  </div>
 	</div>
-	<div class="image">
-	  <div class="picture"><img src="/static/{{image2}}"/></div>
-	  <p><i>{{bijschrift2}}</i></p>
-	  <div class="btn"><center><a class="button" href="/hotter/{{image1}}/{{image2}}">Dit kan weg!</a></center></div>
-	</div>
-      </div>
-
     </div>
   </body>
 </html>

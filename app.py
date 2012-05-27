@@ -1,5 +1,7 @@
 import glob, random, os, string
 
+from copy import copy
+
 from datetime import datetime
 from flask import *
 
@@ -14,29 +16,25 @@ db_session = scoped_session(sessionmaker(autocommit=False,
 Base = declarative_base()
 Base.query = db_session.query_property()
 
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 
 class Click(Base):
     __tablename__ = 'clicks'
 
     id = Column(Integer, primary_key=True)
     user = Column(String)
-    ip = Column(String)
-    seq = Column(Integer)
     time = Column(DateTime)
-    image1 = Column(String)
-    image2 = Column(String)
+    image = Column(String)
+    kunst = Column(Boolean)
 
-    def __init__(self, user, ip, seq, image1, image2):
+    def __init__(self, user, image, kunst):
         self.user = user
-        self.ip = ip
-        self.seq = seq
         self.time = datetime.now()
-        self.image1 = image1
-        self.image2 = image2
+        self.image = image
+        self.kunst = kunst
 
     def __repr__(self):
-        return "<Click('%s', '%s', '%s', '%s')>" % (self.user, self.ip, self.image1, self.image2)
+        return "<Click('%s', '%s', '%s', '%s')>" % (self.user, self.time, self.image1, self.kunst)
 
 Base.metadata.create_all(bind=engine)
 
@@ -74,17 +72,33 @@ def index():
     # new user? assign unique id (is stored in cookie)
     if not 'counter' in session:
         session['user'] = random_username()
-        session['counter'] = random.randint(0,12345678)
+        session['counter'] = 0
         return render_template("welcome.html")
 
     r = random.Random()
-    r.seed(session['counter'])
+    r.seed(session['user'])
+    ims = copy(images)
+    r.shuffle(ims)
+    index = session['counter'] % len(images)
+    image = ims[index]
+    return render_template("index.html", image=image, bijschrift=bijschriften[image])
 
-    image1, image2 = r.sample(images, 2)
-    return render_template("index.html", image1=image1, image2=image2, bijschrift1=bijschriften[image1], bijschrift2=bijschriften[image2])
+@app.route("/kunst/<image>/")
+def kunst(image):
+    if not 'user' in session:
+        abort(403)
 
-@app.route("/hotter/<image1>/<image2>/")
-def hotter(image1, image2):
+    # increase counter
+    session['counter'] += 1
+
+    c = Click(session["user"], image, True)
+    db_session.add(c)
+    db_session.commit()
+
+    return redirect(url_for('index'))
+
+@app.route("/weg/<image>/")
+def weg(image):
 
     if not 'user' in session:
         abort(403)
@@ -92,8 +106,7 @@ def hotter(image1, image2):
     # increase counter
     session['counter'] += 1
 
-    # create database row (session, ip, im1, im2)
-    c = Click(session["user"], request.remote_addr, session['counter'], image1, image2)
+    c = Click(session["user"], image, False)
     db_session.add(c)
     db_session.commit()
 
@@ -105,15 +118,7 @@ def shutdown_session(exception=None):
 
 @app.route("/stats/")
 def stats():
-    cs = [row2dict(c) for c in Click.query.all()]
-    return render_template("stats.html", clicks=cs)
-
-def row2dict(row):
-    d = {}
-    for columnName in row.__table__.columns.keys():
-        d[columnName] = getattr(row, columnName)
-
-    return d
+    return "registered clicks: %d" % len(Click.query.all())
 
 if __name__ == "__main__":
     app.debug = True
