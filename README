@@ -1,0 +1,13 @@
+
+easy_install virtualenv
+
+
+virtualenv .
+
+pip -E . install -r requirements.txt
+
+
+
+source bin/activate
+
+python app.py
